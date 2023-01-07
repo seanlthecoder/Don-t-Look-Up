@@ -5,6 +5,7 @@ formElement.addEventListener ("submit", function(event){
 
     var city = document.getElementById ("city").value
     getForcast(city);
+    fiveDayForcast(city);
 })
 
 
@@ -17,13 +18,36 @@ function getForcast(city) {
         <h2>${city}(${moment().format('D/M/YYYY')})</h2>
     <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">
-    <li class="list-group-item">Temp: ${apiData.main.temp} <img src="http://openweathermap.org/img/wn/${apiData.weather[0].icon}@2x.png" /></li>
+    <li class="list-group-item">Temp: ${apiData.main.temp} <img src="https://openweathermap.org/img/wn/${apiData.weather[0].icon}@2x.png" /></li>
     <li class="list-group-item">Humidity:${apiData.main.humidity}</li>
     <li class="list-group-item">Wind: ${apiData.wind.speed}</li>
     <li class="list-group-item">Humidity:${apiData.weather[0].description}</li>
   </ul>
 </div>`
 document.getElementById("today").innerHTML = html 
+    })
+
+
+}
+
+
+function fiveDayForcast(city) {
+
+    fetch(`https:api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}&units=imperial`)
+    .then(response => response.json())
+    .then(apiData => {
+        console.log(apiData);
+//         var html =`
+//         <h2>${city}(${moment().format('D/M/YYYY')})</h2>
+//     <div class="card" style="width: 18rem;">
+//   <ul class="list-group list-group-flush">
+//     <li class="list-group-item">Temp: ${apiData.main.temp} <img src="https://openweathermap.org/img/wn/${apiData.weather[0].icon}@2x.png" /></li>
+//     <li class="list-group-item">Humidity:${apiData.main.humidity}</li>
+//     <li class="list-group-item">Wind: ${apiData.wind.speed}</li>
+//     <li class="list-group-item">Humidity:${apiData.weather[0].description}</li>
+//   </ul>
+// </div>`
+// document.getElementById("today").innerHTML = html 
     })
 
 
