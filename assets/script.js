@@ -52,7 +52,7 @@ formElement.addEventListener ("submit", function(event){
     event.preventDefault ();
 
    
-
+// grabbing the html form element
     var city = document.getElementById ("city").value
     searchResults.push(city)
     getForcast(city);
@@ -63,7 +63,7 @@ formElement.addEventListener ("submit", function(event){
 
 })
 
-
+// creating function for 5 day forecast
 function getForcast(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API}&units=imperial`)
     .then(response => response.json())
