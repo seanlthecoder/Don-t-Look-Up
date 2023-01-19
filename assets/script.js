@@ -26,6 +26,7 @@ function createSearchHistoryButton(searchResult) {
     var btn = document.createElement("button");
         btn.setAttribute("type", 'button');
         btn.classList.add('history-btn', 'btn-history');
+        btn.addEventListener("click",getData)
         btn.textContent = searchResult;
         searchHistory.appendChild(btn);
 }
@@ -37,7 +38,12 @@ function createSearchHistoryButton(searchResult) {
 
 
 
+function getData(event) {
+    console.log( event.target.textContent)
+    getForcast(event.target.textContent)
+    fiveDayForcast(event.target.textContent)
 
+}
 
 // day.js timezone plugins
 // dayjs.extend(window.dayjs_plugin_timezone);
@@ -70,8 +76,8 @@ function getForcast(city) {
     .then(apiData => {
         console.log(apiData);
         var html =`
-        <h2>${city}(${moment().format('D/M/YYYY')})</h2>
-    <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 28rem;">
+        <h2>${city}(${moment().format('M/D/YYYY')})</h2>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">Temp: ${apiData.main.temp} <img src="https://openweathermap.org/img/wn/${apiData.weather[0].icon}@2x.png" /></li>
     <li class="list-group-item">Humidity:${apiData.main.humidity}</li>
@@ -92,23 +98,27 @@ function fiveDayForcast(city) {
     .then(response => response.json())
     .then(apiData => {
         console.log(apiData);
-//         var html =`
-//         <h2>${city}(${moment().format('D/M/YYYY')})</h2>
-//     <div class="card" style="width: 18rem;">
-//   <ul class="list-group list-group-flush">
-//     <li class="list-group-item">Temp: ${apiData.main.temp} <img src="https://openweathermap.org/img/wn/${apiData.weather[0].icon}@2x.png" /></li>
-//     <li class="list-group-item">Humidity:${apiData.main.humidity}</li>
-//     <li class="list-group-item">Wind: ${apiData.wind.speed}</li>
-//     <li class="list-group-item">Humidity:${apiData.weather[0].description}</li>
-//   </ul>
-// </div>`
-// document.getElementById("today").innerHTML = html 
+        var html =""
+    for (let i=0;i<apiData.list.length;i = i+8){
+         html +=`
+         <div class="card" style="width: 18rem;">
+         <h2>${moment(apiData.list[i].dt_txt).format('M/D/YYYY')}</h2>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Temp: ${apiData.list[i].main.temp} <img src="https://openweathermap.org/img/wn/${apiData.list[i].weather[0].icon}@2x.png" /></li>
+    <li class="list-group-item">Humidity:${apiData.list[i].main.humidity}</li>
+    <li class="list-group-item">Wind: ${apiData.list[i].wind.speed}</li>
+    <li class="list-group-item">Humidity:${apiData.list[i].weather[0].description}</li>
+  </ul>
+</div>`
+    }
+document.getElementById("forecast").innerHTML = html 
     })
 
 
+    
 }
 
-
+// Function to display 5 day forecast.
 
 
 
@@ -216,5 +226,4 @@ function fiveDayForcast(city) {
 //     .then((response) => response.json())
 //     .then((apiData) => {
 //       console.log(apiData);
-//     });
-// }
+    // });
