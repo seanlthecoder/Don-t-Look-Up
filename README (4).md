@@ -49,4 +49,5 @@ The tool also stores searched info in local storage and provides an accuarate se
 
 
 
+![image](https://user-images.githubusercontent.com/111099189/213337365-add4cac6-d1ae-408d-b1c0-e30a6af5ebdf.png)
 
