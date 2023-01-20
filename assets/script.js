@@ -56,7 +56,7 @@ formElement.addEventListener ("submit", function(event){
     var city = document.getElementById ("city").value
     searchResults.push(city)
     getForcast(city);
-    fiveDayForcast(city);
+    
     localStorage.setItem ("cities", JSON.stringify(searchResults));
 
     createSearchHistoryButton(city);
@@ -80,15 +80,16 @@ function getForcast(city) {
   </ul>
 </div>`
 document.getElementById("today").innerHTML = html 
+fiveDayForcast(apiData.coord);
     })
 
 
 }
 
 
-function fiveDayForcast(city) {
+function fiveDayForcast(coord) {
 
-    fetch(`https:api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API}&units=imperial`)
+    fetch(`https:api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${API}&units=imperial`)
     .then(response => response.json())
     .then(apiData => {
         console.log(apiData);
