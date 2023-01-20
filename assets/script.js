@@ -106,7 +106,7 @@ function fiveDayForcast(coord) {
   </ul>
 </div>`
     }
-document.getElementById("forecast").innerHTML = html 
+document.getElementById("forcast").innerHTML = html 
     })
 
 
