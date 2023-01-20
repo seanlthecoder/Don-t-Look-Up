@@ -89,7 +89,7 @@ fiveDayForcast(apiData.coord);
 
 function fiveDayForcast(coord) {
 
-    fetch(`https:api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${API}&units=imperial`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${API}&units=imperial`)
     .then(response => response.json())
     .then(apiData => {
         console.log(apiData);
